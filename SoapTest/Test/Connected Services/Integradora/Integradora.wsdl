@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="LeerRom">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="cara" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeerRomResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LeerRomResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EscribirRom">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="rom" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="cara" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EscribirRomResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EscribirRomResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Imprimir">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="texto" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ip" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImprimirResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ImprimirResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="LeerRomSoapIn">
+    <wsdl:part name="parameters" element="tns:LeerRom" />
+  </wsdl:message>
+  <wsdl:message name="LeerRomSoapOut">
+    <wsdl:part name="parameters" element="tns:LeerRomResponse" />
+  </wsdl:message>
+  <wsdl:message name="EscribirRomSoapIn">
+    <wsdl:part name="parameters" element="tns:EscribirRom" />
+  </wsdl:message>
+  <wsdl:message name="EscribirRomSoapOut">
+    <wsdl:part name="parameters" element="tns:EscribirRomResponse" />
+  </wsdl:message>
+  <wsdl:message name="ImprimirSoapIn">
+    <wsdl:part name="parameters" element="tns:Imprimir" />
+  </wsdl:message>
+  <wsdl:message name="ImprimirSoapOut">
+    <wsdl:part name="parameters" element="tns:ImprimirResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IntegradoraSoap">
+    <wsdl:operation name="LeerRom">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Lee el rom en la cara especificada</wsdl:documentation>
+      <wsdl:input message="tns:LeerRomSoapIn" />
+      <wsdl:output message="tns:LeerRomSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EscribirRom">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Escribe rom en la cara especificada</wsdl:documentation>
+      <wsdl:input message="tns:EscribirRomSoapIn" />
+      <wsdl:output message="tns:EscribirRomSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Imprimir">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Imprime un texto</wsdl:documentation>
+      <wsdl:input message="tns:ImprimirSoapIn" />
+      <wsdl:output message="tns:ImprimirSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IntegradoraSoap" type="tns:IntegradoraSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="LeerRom">
+      <soap:operation soapAction="http://tempuri.org/LeerRom" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EscribirRom">
+      <soap:operation soapAction="http://tempuri.org/EscribirRom" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Imprimir">
+      <soap:operation soapAction="http://tempuri.org/Imprimir" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="IntegradoraSoap12" type="tns:IntegradoraSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="LeerRom">
+      <soap12:operation soapAction="http://tempuri.org/LeerRom" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EscribirRom">
+      <soap12:operation soapAction="http://tempuri.org/EscribirRom" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Imprimir">
+      <soap12:operation soapAction="http://tempuri.org/Imprimir" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Integradora">
+    <wsdl:port name="IntegradoraSoap" binding="tns:IntegradoraSoap">
+      <soap:address location="http://localhost:53843/Prueba/Integradora.asmx" />
+    </wsdl:port>
+    <wsdl:port name="IntegradoraSoap12" binding="tns:IntegradoraSoap12">
+      <soap12:address location="http://localhost:53843/Prueba/Integradora.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

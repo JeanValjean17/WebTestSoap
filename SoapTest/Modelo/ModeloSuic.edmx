@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CapacitacionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="personas">
+          <Key>
+            <PropertyRef Name="id_persona" />
+          </Key>
+          <Property Name="id_persona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="50" />
+          <Property Name="cedula" Type="int" />
+          <Property Name="id_mama" Type="int" />
+          <Property Name="id_papa" Type="int" />
+        </EntityType>
+        <EntityType Name="suic">
+          <Key>
+            <PropertyRef Name="id_suic" />
+          </Key>
+          <Property Name="id_suic" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rom" Type="nvarchar" MaxLength="50" />
+          <Property Name="fecha_proxima_revision" Type="date" />
+          <Property Name="habilitado" Type="bit" />
+        </EntityType>
+        <Association Name="fk_personas_mama">
+          <End Role="personas" Type="Self.personas" Multiplicity="0..1" />
+          <End Role="personas1" Type="Self.personas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="personas">
+              <PropertyRef Name="id_persona" />
+            </Principal>
+            <Dependent Role="personas1">
+              <PropertyRef Name="id_mama" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_personas_papa">
+          <End Role="personas" Type="Self.personas" Multiplicity="0..1" />
+          <End Role="personas1" Type="Self.personas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="personas">
+              <PropertyRef Name="id_persona" />
+            </Principal>
+            <Dependent Role="personas1">
+              <PropertyRef Name="id_papa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CapacitacionModelStoreContainer">
+          <EntitySet Name="personas" EntityType="Self.personas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="suic" EntityType="Self.suic" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_personas_mama" Association="Self.fk_personas_mama">
+            <End Role="personas" EntitySet="personas" />
+            <End Role="personas1" EntitySet="personas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_personas_papa" Association="Self.fk_personas_papa">
+            <End Role="personas" EntitySet="personas" />
+            <End Role="personas1" EntitySet="personas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CapacitacionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="suic">
+          <Key>
+            <PropertyRef Name="id_suic" />
+          </Key>
+          <Property Name="id_suic" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fecha_proxima_revision" Type="DateTime" Precision="0" />
+          <Property Name="habilitado" Type="Boolean" />
+        </EntityType>
+        <EntityContainer Name="CapacitacionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="suics" EntityType="Self.suic" />
+          <EntitySet Name="personas" EntityType="CapacitacionModel.persona" />
+          <AssociationSet Name="fk_personas_mama" Association="CapacitacionModel.fk_personas_mama">
+            <End Role="persona" EntitySet="personas" />
+            <End Role="persona1" EntitySet="personas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_personas_papa" Association="CapacitacionModel.fk_personas_papa">
+            <End Role="persona" EntitySet="personas" />
+            <End Role="persona1" EntitySet="personas" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="persona">
+          <Key>
+            <PropertyRef Name="id_persona" />
+          </Key>
+          <Property Name="id_persona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cedula" Type="Int32" />
+          <Property Name="id_mama" Type="Int32" />
+          <Property Name="id_papa" Type="Int32" />
+          <NavigationProperty Name="personas1" Relationship="CapacitacionModel.fk_personas_mama" FromRole="persona" ToRole="persona1" />
+          <NavigationProperty Name="persona1" Relationship="CapacitacionModel.fk_personas_mama" FromRole="persona1" ToRole="persona" />
+          <NavigationProperty Name="personas11" Relationship="CapacitacionModel.fk_personas_papa" FromRole="persona" ToRole="persona1" />
+          <NavigationProperty Name="persona2" Relationship="CapacitacionModel.fk_personas_papa" FromRole="persona1" ToRole="persona" />
+        </EntityType>
+        <Association Name="fk_personas_mama">
+          <End Type="CapacitacionModel.persona" Role="persona" Multiplicity="0..1" />
+          <End Type="CapacitacionModel.persona" Role="persona1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persona">
+              <PropertyRef Name="id_persona" />
+            </Principal>
+            <Dependent Role="persona1">
+              <PropertyRef Name="id_mama" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_personas_papa">
+          <End Type="CapacitacionModel.persona" Role="persona" Multiplicity="0..1" />
+          <End Type="CapacitacionModel.persona" Role="persona1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persona">
+              <PropertyRef Name="id_persona" />
+            </Principal>
+            <Dependent Role="persona1">
+              <PropertyRef Name="id_papa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CapacitacionModelStoreContainer" CdmEntityContainer="CapacitacionEntities">
+          <EntitySetMapping Name="suics">
+            <EntityTypeMapping TypeName="CapacitacionModel.suic">
+              <MappingFragment StoreEntitySet="suic">
+                <ScalarProperty Name="habilitado" ColumnName="habilitado" />
+                <ScalarProperty Name="id_suic" ColumnName="id_suic" />
+                <ScalarProperty Name="rom" ColumnName="rom" />
+                <ScalarProperty Name="fecha_proxima_revision" ColumnName="fecha_proxima_revision" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="personas">
+            <EntityTypeMapping TypeName="CapacitacionModel.persona">
+              <MappingFragment StoreEntitySet="personas">
+                <ScalarProperty Name="id_papa" ColumnName="id_papa" />
+                <ScalarProperty Name="id_mama" ColumnName="id_mama" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id_persona" ColumnName="id_persona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
